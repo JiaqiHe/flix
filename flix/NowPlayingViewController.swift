@@ -20,13 +20,12 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     let alertController = UIAlertController(title: "Cannot Get Movies", message: "The Internet connection seems to be offline.", preferredStyle: .alert)
     
     
-    
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.rowHeight = 200
+        self.tableView.rowHeight = 150
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
         tableView.insertSubview(refreshControl, at: 0)

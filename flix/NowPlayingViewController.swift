@@ -8,6 +8,7 @@
 
 import UIKit
 import AlamofireImage
+import PKHUD
 
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
 
@@ -20,6 +21,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        HUD.dimsBackground = false
+        HUD.allowsInteraction = false
+        
         self.tableView.rowHeight = 160
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(NowPlayingViewController.didPullToRefresh(_:)), for: .valueChanged)
@@ -37,6 +41,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     
     func fetchMovies() {
         self.activityIndicator.startAnimating()
+        showAnimatedProgressHUD(activityIndicator)
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -79,6 +84,65 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
 
+    
+    // hud
+    @IBAction func showAnimatedSuccessHUD(_ sender: AnyObject) {
+        HUD.flash(.success, delay: 2.0)
+    }
+    
+    @IBAction func showAnimatedErrorHUD(_ sender: AnyObject) {
+        HUD.show(.error)
+        HUD.hide(afterDelay: 2.0)
+    }
+    
+    @IBAction func showAnimatedProgressHUD(_ sender: AnyObject) {
+        HUD.show(.progress)
+        
+        // Now some long running task starts...
+        delay(2.0) {
+            // ...and once it finishes we flash the HUD for a second.
+            HUD.flash(.success, delay: 1.0)
+        }
+    }
+    
+    @IBAction func showCustomProgressHUD(_ sender: AnyObject) {
+        HUD.flash(.rotatingImage(UIImage(named: "progress")), delay: 2.0)
+    }
+    
+    @IBAction func showAnimatedStatusProgressHUD(_ sender: AnyObject) {
+        HUD.flash(.labeledProgress(title: "Title", subtitle: "Subtitle"), delay: 2.0)
+    }
+    
+    @IBAction func showTextHUD(_ sender: AnyObject) {
+        HUD.flash(.label("Requesting Licence…"), delay: 2.0) { _ in
+            print("License Obtained.")
+        }
+    }
+    
+    /*
+     
+     Please note that the above demonstrates the "porcelain" interface - a more concise and clean way to work with the HUD.
+     If you need more options and flexbility, feel free to use the underlying "plumbing". E.g.:
+     
+     PKHUD.sharedHUD.show()
+     PKHUD.sharedHUD.contentView = PKHUDSuccessView(title: "Success!", subtitle: nil)
+     PKHUD.sharedHUD.hide(afterDelay: 2.0)
+     */
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.allButUpsideDown
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    func delay(_ delay: Double, closure:@escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
+
+    
     /*
     // MARK: - Navigation
 

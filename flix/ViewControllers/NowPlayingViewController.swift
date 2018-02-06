@@ -25,7 +25,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     override func viewDidLoad() {
         super.viewDidLoad()
         // search bar
-        searchBlock.delegate = self
+        searchBlock.delegate = self as! UISearchBarDelegate
         
         // HUD
         HUD.dimsBackground = false
@@ -71,6 +71,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                         // optional code for what happens after the alert controller has finished presenting
                     }
                 } else if let data = data {
+                    self.movies = []
                     let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                     let allMovies = dataDictionary["results"] as! [[String: Any]]
                     //==================search==================
@@ -167,9 +168,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         HUD.show(.progress)
         
         // Now some long running task starts...
-        delay(2.0) {
+        delay(0.8) {
             // ...and once it finishes we flash the HUD for a second.
-            HUD.flash(.success, delay: 1.0)
+            HUD.flash(.success, delay: 0.2)
         }
     }
     

@@ -13,11 +13,12 @@ import PKHUD
 class NowPlayingViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var tableView:
-        UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
     var movies: [[String: Any]] = []
     var refreshControl: UIRefreshControl!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +41,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
     }
     
     func fetchMovies() {
-        self.activityIndicator.startAnimating()
-        showAnimatedProgressHUD(activityIndicator)
+//        self.activityIndicator.startAnimating()
+//        showAnimatedProgressHUD(activityIndicator)
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -49,12 +50,24 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
             // This will run when the network request returns
             if let error = error {
                 print(error.localizedDescription)
+                // network error alert
+                let alertController = UIAlertController(title: "Cannot Get Movies", message: "The Internet connection appears to be offline.", preferredStyle: .alert)
+                let OKAction = UIAlertAction(title: "OK", style: .default) { (action) in
+                    // handle response here.
+                    
+                }
+                // add the OK action to the alert controller
+                alertController.addAction(OKAction)
+                self.present(alertController, animated: true) {
+                    // optional code for what happens after the alert controller has finished presenting
+                }
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
                 self.movies = dataDictionary["results"] as! [[String: Any]]
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
-                self.activityIndicator.stopAnimating()
+                self.showAnimatedProgressHUD(self.activityIndicator)
+//                self.activityIndicator.stopAnimating()
             }
         }
         task.resume()
@@ -83,9 +96,17 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell) {
+            let movie = movies[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.movie = movie
+        }
+    }
     
-    // hud
+    
+    // HUD functions
     @IBAction func showAnimatedSuccessHUD(_ sender: AnyObject) {
         HUD.flash(.success, delay: 2.0)
     }

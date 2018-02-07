@@ -214,7 +214,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IEm-8z-Zre" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-630.39999999999998" y="31.484257871064472"/>
+            <point key="canvasLocation" x="-745" y="29"/>
         </scene>
         <!--Superhero View Controller-->
         <scene sceneID="1ZD-Qr-cmd">

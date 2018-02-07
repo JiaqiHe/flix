@@ -32,7 +32,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
         HUD.allowsInteraction = false
         
         // table cell set
-        self.tableView.rowHeight = 160
+        self.tableView.rowHeight = 166
         
         // refresh control
         refreshControl = UIRefreshControl()

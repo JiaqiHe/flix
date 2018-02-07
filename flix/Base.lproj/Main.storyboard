@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t66-Gd-Jr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1396" y="31.934032983508249"/>
+            <point key="canvasLocation" x="1497" y="31"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="rSg-9N-va5">
@@ -186,7 +186,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="NkH-pd-6Kb">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="6" minimumInteritemSpacing="6" id="NkH-pd-6Kb">
                                     <size key="itemSize" width="181" height="245"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -202,12 +202,13 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lfA-ew-RFi">
                                                     <rect key="frame" x="0.0" y="0.0" width="181" height="245"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
                                         <connections>
                                             <outlet property="posterImageView" destination="lfA-ew-RFi" id="43y-5X-E4Q"/>
+                                            <segue destination="n7M-KD-Bv5" kind="show" id="2ka-6V-IdN"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -224,6 +225,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XJY-5b-FxT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="742.5787106446777"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="R5a-4r-m2Y">
+            <objects>
+                <viewController id="B3N-8N-hvk" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Onm-rc-eqS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="zJb-Jd-d7Q"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ADT-zH-r4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1497" y="743"/>
         </scene>
         <!--Superhero-->
         <scene sceneID="WPO-y3-u4h">
@@ -249,4 +265,7 @@
         <image name="now_playing_tabbar_item" width="21" height="21"/>
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="2ka-6V-IdN"/>
+    </inferredMetricsTieBreakers>
 </document>

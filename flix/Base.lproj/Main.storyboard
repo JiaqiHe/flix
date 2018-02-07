@@ -121,6 +121,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnB-bi-AOd">
+                                <rect key="frame" x="16" y="249" width="104" height="169"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="trailerModal:" destination="n7M-KD-Bv5" eventType="touchUpInside" id="ziH-aN-fWF"/>
+                                    <segue destination="hrs-ta-azD" kind="modal" identifier="trailerSegue" modalTransitionStyle="coverVertical" id="8yy-QE-arN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="cKJ-VS-MSE"/>
@@ -135,7 +143,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t66-Gd-Jr3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1497" y="31"/>
+            <point key="canvasLocation" x="1496.8" y="30.134932533733135"/>
+        </scene>
+        <!--Trailer View Controller-->
+        <scene sceneID="NFz-5u-pK1">
+            <objects>
+                <viewController storyboardIdentifier="userVC" id="hrs-ta-azD" customClass="TrailerViewController" customModule="flix" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wMW-OU-GaW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ir-wl-Pub">
+                                <rect key="frame" x="0.0" y="59" width="375" height="608"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGI-u2-iJF">
+                                <rect key="frame" x="321" y="20" width="38" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButton:" destination="hrs-ta-azD" eventType="touchUpInside" id="5go-gn-T2P"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="5iV-FU-UGS"/>
+                    </view>
+                    <connections>
+                        <outlet property="trailerWebView" destination="7ir-wl-Pub" id="Dqo-52-krd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2gn-AX-FgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2248.8000000000002" y="29.23538230884558"/>
         </scene>
         <!--Now Playing-->
         <scene sceneID="rSg-9N-va5">
@@ -226,21 +268,6 @@
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="742.5787106446777"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="R5a-4r-m2Y">
-            <objects>
-                <viewController id="B3N-8N-hvk" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Onm-rc-eqS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="zJb-Jd-d7Q"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ADT-zH-r4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1497" y="743"/>
-        </scene>
         <!--Superhero-->
         <scene sceneID="WPO-y3-u4h">
             <objects>
@@ -266,6 +293,6 @@
         <image name="superhero_tabbar_item" width="21" height="23"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2ka-6V-IdN"/>
+        <segue reference="c4d-mS-ZUZ"/>
     </inferredMetricsTieBreakers>
 </document>

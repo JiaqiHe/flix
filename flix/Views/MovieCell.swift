@@ -10,6 +10,13 @@ import UIKit
 
 class MovieCell: UITableViewCell {
     
+    var movie: Movie? {
+        didSet {
+            titleLabel.text = movie?.title
+            overviewLabel.text = movie?.overview
+            posterImageView.af_setImage(withURL: (movie?.posterUrl)!)
+        }
+    }
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -27,5 +34,6 @@ class MovieCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
 
 }

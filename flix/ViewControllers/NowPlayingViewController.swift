@@ -17,7 +17,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     @IBOutlet weak var searchBlock: UISearchBar!
     
     
-    var movies: [[String: Any]] = []
+//    var movies: [[String: Any]] = []
+    var movies: [Movie] = []
     var refreshControl: UIRefreshControl!
     
     
@@ -78,7 +79,8 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                     for movie in allMovies {
                         let title = movie["title"] as! String
                         if (title.range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil) {
-                            self.movies.append(movie)
+                            self.movies.append(Movie(dictionary: movie))
+//                            self.movies.append(movie)
                         }
                     }
                     self.tableView.reloadData()
@@ -111,7 +113,9 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
                 }
             } else if let data = data {
                 let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
-                self.movies = dataDictionary["results"] as! [[String: Any]]
+                let movieDictionaries = dataDictionary["results"] as! [[String: Any]]
+                self.movies = Movie.movies(dictionaries: movieDictionaries)
+                
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.showAnimatedProgressHUD(self.activityIndicator)
@@ -126,16 +130,7 @@ class NowPlayingViewController: UIViewController, UITableViewDataSource, UISearc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
-        let movie = movies[indexPath.row]
-        let title = movie["title"] as! String
-        let overview = movie["overview"] as! String
-        let posterpass = movie["poster_path"] as! String
-        
-        let baseURL = "https://image.tmdb.org/t/p/w500"
-        let posterURL = URL(string: baseURL + posterpass)!
-        cell.titleLabel.text = title
-        cell.overviewLabel.text = overview
-        cell.posterImageView.af_setImage(withURL: posterURL)
+        cell.movie = movies[indexPath.row]
         return cell
     }
     

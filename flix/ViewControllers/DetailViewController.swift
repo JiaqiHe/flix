@@ -26,7 +26,8 @@ class DetailViewController: UIViewController {
         performSegue(withIdentifier: "trailerSegue", sender: nil)
     }
     
-    var movie: [String : Any]?
+//    var movie: [String : Any]?
+    var movie: Movie?
     var videos: [[String : Any]] = []
     
     override func viewDidLoad() {
@@ -34,18 +35,13 @@ class DetailViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         if let movie = movie {
-            titleLabel.text = movie["title"] as? String
-            releaseDateLabel.text = movie["release_date"] as? String
-            overviewLabel.text = movie["overview"] as? String
-            let backdropPathString = movie[MovieKeys.backdropPath] as! String
-            let posterPathString = movie[MovieKeys.posterPathString] as! String
-            let baseURLString = "https://image.tmdb.org/t/p/w500"
-            
-            let backdropURL = URL(string: baseURLString + backdropPathString)!
+            titleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate as? String
+            overviewLabel.text = movie.overview
+            let backdropURL = movie.backdropUrl!
             backDropImageView.af_setImage(withURL: backdropURL)
-            
-            let posterURL = URL(string: baseURLString + posterPathString)!
-            posterImageView.af_setImage(withURL: posterURL)
+            let posterURL = movie.posterUrl
+            posterImageView.af_setImage(withURL: posterURL!)
             fetchvideo()
         }
     }
@@ -66,7 +62,7 @@ class DetailViewController: UIViewController {
     func fetchvideo() {
         let first_half = "https://api.themoviedb.org/3/movie/"
         let last_half = "/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let id = movie!["id"] as! Int
+        let id = movie?.id as! Int
         let movie_id = String(id)
         let url = URL(string: first_half + movie_id + last_half)!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
